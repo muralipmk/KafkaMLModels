@@ -1,4 +1,4 @@
-package kafka_mlapp;
+package Mnist.kafka_mlapp;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;

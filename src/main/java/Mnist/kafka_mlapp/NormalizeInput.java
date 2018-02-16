@@ -1,4 +1,4 @@
-package kafka_mlapp;
+package Mnist.kafka_mlapp;
 
 import org.datavec.image.loader.NativeImageLoader;
 import org.nd4j.linalg.api.ndarray.INDArray;
