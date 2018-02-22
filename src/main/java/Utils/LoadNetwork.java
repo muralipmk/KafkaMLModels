@@ -1,4 +1,4 @@
-package Mnist.kafka_mlapp;
+package Utils;
 
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.util.ModelSerializer;

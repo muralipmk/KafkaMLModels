@@ -1,7 +1,8 @@
-package Mnist.kafka_mlapp;
+package Mnist.HadoopkafkaMLApp;
 
 import Utils.LoadNetwork;
 import Utils.NormalizeInput;
+import Utils.MyHadoop;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -9,12 +10,12 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.nd4j.linalg.api.ndarray.INDArray;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-public class KafkaMLApp {
-
+public class KafkaHadoopMLApp {
     static List<Integer> labelList = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 
     public static Properties setProperties(){
@@ -48,14 +49,14 @@ public class KafkaMLApp {
 
         consumer.subscribe(Arrays.asList("mnist_topic"));
 
-
         //Load the Network.
         while(true){
             ConsumerRecords<String,String> records= consumer.poll(10);
             for(ConsumerRecord<String,String> r: records){
                 NormalizeInput input= new NormalizeInput(28,28,1, labelList);
 
-                INDArray input_Matrix= input.normalizeInput(new File(r.value().toString()), 0, 1);
+                InputStream inputStream= MyHadoop.getInputStream(r.value().toString());
+                INDArray input_Matrix= input.normalizeInput(inputStream, 0, 1);
                 INDArray result= LoadNetwork.getModel("/home/murali/mnist_model.zip").output(input_Matrix);
 
                 System.out.println("Number detected as: " + labelList.get(NormalizeInput.getMaxIndex(result)) + " : Actual Label: " + new File(r.value().toString()).getParent().toString());

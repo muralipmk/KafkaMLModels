@@ -1,4 +1,4 @@
-package Mnist;
+package Mnist.Models;
 
 import org.datavec.api.io.labels.ParentPathLabelGenerator;
 import org.datavec.api.split.FileSplit;
@@ -137,6 +137,7 @@ public class MnistTraining {
                 // with the labels from the RecordReader
                 eval.eval(next.getLabels(), output);
             }
+
             System.out.println(eval.stats().toString());
             log.info(eval.stats());
 
