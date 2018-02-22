@@ -30,7 +30,10 @@ public class KafkaNumProducer {
         return properties;
     }
 
-
+    /**
+     * Publishes the file paths to kafka cluster.
+     * @param args
+     */
     public static void main(String[] args) {
         //Setting the cluster properties.
         Properties properties= setProperties();
